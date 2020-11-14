@@ -17,7 +17,7 @@ class FollowsController extends Controller
     public function store(User $user)
     {   
 
-        //$user = auth::user();
+        //to store data of following
         
         return auth()->user()->following()->toggle($user->profile);
 

@@ -13,26 +13,29 @@ class PostsController extends Controller
 {
 
     
-
+    // function to filter http
     public function __construct()
     {
         $this->middleware('auth');
         
     }
-
+    // return lastest post where user is following
     public function index()
     {
         $users = auth()->user()->following()->pluck('profiles.user_id');
-        $post = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(5);
-
+       
+        $post = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(6);
+           
+        
         return view('posts.index', compact('post'));
     }
-
+    // create post
     public function create()
     {
         return view('posts.create');
     }
 
+    // function for storing new post
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -62,6 +65,7 @@ class PostsController extends Controller
        return redirect('/profile/' . auth::user()->id);
     }
 
+    // show post function
     public function show(\App\Models\Post $post)
     {
         
@@ -69,18 +73,22 @@ class PostsController extends Controller
 
     }
 
-   
-
+      //function to edit user->post , update will check for user ID and return a boolean.
+    //authorize will then allow then allow user->id that correspond with post->user_id to edit post
     public function edit(Post $post)
     {
+      
         $this->authorize('update',$post);
+     
         return view('posts.edit', compact('post'));
     }
+    // same as above. once profile policy check completed, allow user to update the post
 
     public function update(Post $post)
     {
+    
+            
         $this->authorize('update',$post);
-
         $data = request()->validate([
             'foodname' => '',
             'description' => '',
@@ -88,31 +96,44 @@ class PostsController extends Controller
             'cost' => '',
             'qty' => '',
             'image' =>'',
-
         ]);
-
         
 
+         // to update image in $imagepath if image in $data contains new update
         if (request('image')){
 
-            $imagePath = request('image')->store('profile','public');
+                    $imagePath = request('image')->store('uploads','public');
+                    $image = Image::make(public_path("storage/{$imagePath}"))->fit(1200,1200);
+                    $image->save();
+                    $imageArray = ['image' => $imagePath];      
+            }
+           
+            // to merge the $imagepath into the data array
+            $nData = array_merge(
+          
+                $data,
+                $imageArray ?? []
+            );
 
-            $image = Image::make(public_path("storage/{$imagePath}"))->fit(1000,1000);
-            $image->save();
+            
+            //update the edited data into post
+            $post->update($nData);
 
-            $imageArray = ['image' => $imagePath];
+            
 
-        }
-      
-
-        auth::user()->profile->update(array_merge(
-            $data,
-            $imageArray ?? []
-        ));
-
+       
         return redirect("/p/{$post->id}");
 
     } 
+
+    //delete function
+    public function destroy(Post $post){
+
+        $this->authorize('update',$post);
+        $post->delete();
+        return redirect("profile/{$post->user->id}");
+
+    }
 
 }
 

@@ -33,8 +33,19 @@
                 <br>
                 
                  @can('update', $post)
-                 <a href="/p/{{ $post->id }}/edit"> Edit Food Item </a>
+                 <a class="btn btn-primary" href="/p/{{ $post->id }}/edit" role="button">Edit Food Item </a>
                  @endcan
+
+                
+                 @can('update', $post)
+                    <form action="/p/{{ $post->id }}" method="post">
+                        @method("DELETE")
+                        @csrf
+
+                        <button class="btn btn-primary" type="submit">Delete Food Item</button>
+                    </form>
+                 @endcan
+                 
             </p>
         </div>
    

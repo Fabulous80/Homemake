@@ -23,7 +23,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand d-flex" href="{{ url('/') }}">
+                <a class="navbar-brand d-flex" href="{{ url('/p') }}">
                     <div><img src="/svg/homemakeLogo.svg" style="height:25px; border-right: 1px solid #333;" class="pr-3"></div>
                     <div class="pl-3">{{ config('app.name', 'Laravel') }}</div>
                 </a>
@@ -59,6 +59,13 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                    {{-- Route to profile page of user --}}
+                                   <a class="dropdown-item" href="{{ route('profile', ['user' => Auth::user()->id ]) }}">
+                                        {{ __('My Profile') }}
+                                    </a> 
+
+                                    {{-- Route to Logout function --}}
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

@@ -2,15 +2,7 @@
 
 @section('content')
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
 
 <div class="container">
     <form action="/p" enctype="multipart/form-data" method="post">
@@ -24,10 +16,9 @@
                 <h1>Add New Food Item</h1>
             </div>
             <br>
-
+            {{-- Input for Food Name with error check --}}
             <div class="form-group row">
                 <label for="foodname" class="col-md-4 col-form-label text-md-right">Food Name</label>
-
                     <div class="col-md-6">
                         <input id="foodname" type="text" 
                         class="form-control @error('foodname') is-invalid @enderror" 
@@ -43,9 +34,9 @@
                             @enderror
                     </div>
             </div>
+            {{-- Input for Food Description with error check--}}
             <div class="form-group row">
                 <label for="description" class="col-md-4 col-form-label text-md-right">Food Description</label>
-
                     <div class="col-md-6">
                         <input id="description" type="text" 
                         class="form-control @error('description') is-invalid @enderror" 
@@ -61,6 +52,7 @@
                             @enderror
                     </div>
             </div>
+             {{-- Option for Food Cuisine with error check--}}
             <div class="form-group row">
                 <label for="cuisine" class="col-md-4 col-form-label text-md-right ">Food Cuisine</label>
                      <div class="pl-3"  >
@@ -69,7 +61,6 @@
                         cuisine="cuisine" 
                         value="{{ old('cuisine') }}" 
                         required autocomplete="cuisine" autofocus>
-
                         <option>Chinese</option>
                         <option>Malay</option>
                         <option>Indian</option>
@@ -77,19 +68,18 @@
                         <option>Perankan</option>
                         <option>Korean</option>
                         <option>Japanese</option>
+                        <option>Italian</option>
                         <option>Middle Eastern</option>
                         <option>Others</option>
                     </select>
-                   </div>
-
-
+                    </div>
                             @error('cuisine')
                             <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                             </span>
                             @enderror
-            </div>
-            
+                    </div>
+             {{-- Input for Food Cost with error check--}}
             <div class="form-group row">
                 <label for="cost" class="col-md-4 col-form-label text-md-right">Food Cost</label>
 
@@ -100,7 +90,7 @@
                         cost="cost" value="{{ old('cost') }}" 
                         required autocomplete="cost" 
                         autofocus>
-
+                            
                             @error('cost')
                             <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -108,9 +98,9 @@
                             @enderror
                     </div>
             </div>
+             {{-- Input for Food Quantity with error check--}}
             <div class="form-group row">
                 <label for="qty" class="col-md-4 col-form-label text-md-right">Food Quantity</label>
-
                     <div class="col-md-6">
                         <input id="qty" type="interger" 
                         class="form-control @error('qty') is-invalid @enderror" 
@@ -126,6 +116,7 @@
                         @enderror
                     </div>
             </div>
+             {{-- Input for Food Picture with error check--}}
             <div class="row">
                 <label for="image" class="col-md-4 col-form-label text-md-right">Food Picture</label>
                 <div class="col-md-6">
@@ -139,7 +130,7 @@
                 </div>
             </div>
 
-
+             {{-- Submit Button --}}
                 <div class="row pt-4">
                 <label for="submit" class="col-md-4 col-form-label text-md-right"></label>
                 <div class="col-md-6">

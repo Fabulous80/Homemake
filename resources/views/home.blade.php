@@ -4,25 +4,11 @@
 
     <div class="container">
 
-    
+        <div class="col-12 d-flex justify-content-center pb-5">
+                 <h1>Welcome to Homemake </h1>
 
-        <div class="row">
-                <div class="col-12 d-flex justify-content-center pb-5">
-                <h2>  Welcome back to Homemake, {{ Auth::user()->username }} !<h2>
-                </div>
         </div>
-    <div>
-    </div>
-
-    <div class="row pb-3" >
-
-  
-        <div class="col-4">
-               <h4> Latest Post by Users you follow : </h4>
-        </div>
-    </div>
-
-        <div class="row">
+            <div class="row">
                 @foreach($post as $posts)  
                     <div class="card col-md-4 pb-3">
                         <div class="card  bg-light" >
@@ -51,13 +37,14 @@
                     </div> 
                  @endforeach
             </div>
-
-             {{-- paginate tool --}}
-            <div class="row">
+            
+                    
+    
+            <div class="row pt-5">
                 <div class="col-12 d-flex justify-content-center">
-                    {{ $post->links() }} 
+                    {{ $post->links() }}
                 </div>
-            </div>
+            </div> 
 
     </div>
 @endsection

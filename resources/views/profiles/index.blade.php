@@ -16,7 +16,7 @@
                     <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>
                 </div>
             @can('update', $user->profile)
-            <a href="/p/create"> Add New Food Item </a>
+            <a class="btn btn-primary" href="/p/create" role="button">Add New Food Item </a>
             @endcan
 
         </div>
@@ -36,7 +36,7 @@
             <div> {{ $user->profile->others ??'N/A' }}</div>
         </div>
 
-        <div class="row pt-5">
+        {{-- <div class="row pt-5">
 
             @foreach($user->posts as $post)
             <div class="col-4 pb-4">
@@ -46,7 +46,28 @@
             </div>       
             @endforeach
 
-        </div>
+
+        </div> --}}
+
+        <div class="row">
+                @foreach($user->posts as $post) 
+                    <div class="card col-md-4 pb-3">
+                        <div class="card  bg-light" >
+                                <a href="/p/{{ $post->id }}">
+                                <img class="card-img-top"  src="/storage/{{ $post->image }}" alt="Card image cap">
+                                </a>
+                                        <div class="card-body">
+                                            <h5 class="card-title"><b>{{ $post->foodname }}</b></h5>
+                                            <p class="card-text">{{ $post->description }}</p>
+                                            <p class="card-text">Cost    : ${{ $post->cost }}</p>
+                                            <p class="card-text">Cuisine : {{ $post->cuisine }}</p>
+                                            <p class="card-text">Serves  : {{ $post->qty }} Pax</p>    
+                                        </div>
+                        </div>
+                    </div> 
+                 @endforeach
+            </div>
+
     </div>
 </div>
 @endsection

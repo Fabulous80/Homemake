@@ -51,6 +51,7 @@ class ProfilePolicy
      * @param  \App\Models\Profile  $profile
      * @return mixed
      */
+    // to return boolean if user is the owner of profile
     public function update(User $user, Profile $profile)
     {
         return $user->id == $profile->user_id;

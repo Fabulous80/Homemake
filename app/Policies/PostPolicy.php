@@ -51,9 +51,16 @@ class PostPolicy
      * @param  \App\Models\Post  $post
      * @return mixed
      */
+    // public function update(User $user, Post $post)
+    // {
+    //     return $post->user_id == $user->user_id;
+    // }
+
+    // to return boolean if user is the owner of post
+    // reuse this policy for delete too since its the same policy 
     public function update(User $user, Post $post)
     {
-        return $post->user_id == $user->user_id;
+        return $post->user_id == $user->id;
     }
 
     /**

@@ -85,6 +85,7 @@
                         </div>
                     </form>
                 </div>
+                  <a class="btn btn-primary" href="/" role="button">Back to Main Page</a>
             </div>
         </div>
     </div>
